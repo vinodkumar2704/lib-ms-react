@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Login = () => {
         loggeduser.password === user.password
       ) {
         localStorage.setItem("logstate", "true");
-        navigate("/home");
+        navigate("/");
       } else {
         alert("invalid username or password.");
         setUser({ username: "", password: "" });
@@ -57,6 +57,7 @@ const Login = () => {
         </label>
         <button>Submit</button>
       </form>
+      <Link to={"/register"}>Register</Link>
     </div>
   );
 };

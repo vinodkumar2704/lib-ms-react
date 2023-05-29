@@ -1,5 +1,5 @@
 import { FormEventHandler, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -58,6 +58,7 @@ const Register = () => {
         </label>
         <button>Submit</button>
       </form>
+      <Link to={"/login"}>Login</Link>
     </div>
   );
 };
