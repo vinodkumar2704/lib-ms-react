@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { ContextProvider } from "./context";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -7,6 +8,8 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const { setIsLogin } = useContext(ContextProvider);
+  // eslint-disable-next-line no-unused-vars
   const login = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (!localStorage.getItem("user")) {
@@ -19,6 +22,7 @@ const Login = () => {
         loggeduser.password === user.password
       ) {
         localStorage.setItem("logstate", "true");
+        setIsLogin({ name: user.username, id: Math.random(), status: true });
         navigate("/");
       } else {
         alert("invalid username or password.");
@@ -26,7 +30,7 @@ const Login = () => {
       }
     }
   };
-  return (
+  return !localStorage.getItem("logstate") ? (
     <div>
       <form onSubmit={login}>
         <label htmlFor="username">
@@ -59,6 +63,8 @@ const Login = () => {
       </form>
       <Link to={"/register"}>Register</Link>
     </div>
+  ) : (
+    <Navigate to={"/"} />
   );
 };
 
