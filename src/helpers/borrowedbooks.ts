@@ -1,5 +1,6 @@
+import { useContext } from "react";
 import { BookInterface, Status } from "../types";
-
+import { ContextProvider } from "../context";
 const lib_data: BookInterface[] = [
   {
     title: "math",
@@ -14,7 +15,7 @@ const lib_data: BookInterface[] = [
     author: "salman",
     ISBN: 1235,
     id: "2",
-    owner: "balayya",
+    owner: "q",
     status: Status.BORROWED,
   },
   {
@@ -36,13 +37,13 @@ const lib_data: BookInterface[] = [
 ];
 localStorage.setItem("books", JSON.stringify(lib_data));
 
-function getBorrowedBooksData() {
+function getBorrowedBooksData(id: string) {
   const books: BookInterface[] = JSON.parse(
     localStorage.getItem("books") || ""
   );
   console.log(books);
   const borrowedBooks: BookInterface[] = books.filter((el) => {
-    return el.status === Status.BORROWED;
+    return el.status === Status.BORROWED && el.owner === id;
   });
   const borrowedBooksData: {
     title: string;

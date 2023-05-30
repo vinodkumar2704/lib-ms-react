@@ -4,6 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { useCallback, useContext, useState } from "react";
 import { BookInterface, Status } from "./types";
 import { ContextProvider } from "./context";
+import { Link } from "react-router-dom";
 
 const Library = () => {
   const cachedCallback = useCallback(() => getAvailableBooks, []);
@@ -58,6 +59,9 @@ const Library = () => {
   return (
     <div>
       <Table dataSource={availablebooks} columns={columns}></Table>
+      <Link to={"/library/add"}>
+        <Button type="default">AddBook</Button>
+      </Link>
     </div>
   );
 };

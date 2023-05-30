@@ -4,7 +4,7 @@ import { useLocalStorage } from "./useLocalStorage";
 interface contexttype {
   isLogin: {
     name: string;
-    id: null | number;
+    id: string;
     status: boolean;
   };
   setIsLogin: (c: {}) => void;
@@ -12,7 +12,7 @@ interface contexttype {
 export const ContextProvider = React.createContext<contexttype>({
   isLogin: {
     name: "",
-    id: null,
+    id: "",
     status: false,
   },
   setIsLogin: function (c: {}): void {
@@ -23,7 +23,7 @@ export const ContextProvider = React.createContext<contexttype>({
 export const ContextWrapper = (props: { children: any }) => {
   const [isLogin, setIsLogin] = useLocalStorage("isLogin", {
     name: "",
-    id: null,
+    id: "",
     status: false,
   });
 

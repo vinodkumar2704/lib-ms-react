@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Table } from "antd";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { getBorrowedBooksData } from "./helpers/borrowedbooks";
 import { ColumnsType } from "antd/es/table";
 import { BookInterface, Status } from "./types";
+import { ContextProvider } from "./context";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -13,9 +14,14 @@ const Home = () => {
     navigate("/");
   };
 
-  const cachedCallback = useCallback(() => getBorrowedBooksData, []);
-
-  const [borrowedBooks, setBorrowedBooks] = useState(cachedCallback());
+  const cachedCallback = useCallback(
+    (id: string) => getBorrowedBooksData(id),
+    []
+  );
+  const { isLogin } = useContext(ContextProvider);
+  const [borrowedBooks, setBorrowedBooks] = useState(
+    cachedCallback(isLogin.id)
+  );
 
   function returnBook(title: string) {
     const books = JSON.parse(localStorage.getItem("books") || "");
@@ -23,7 +29,7 @@ const Home = () => {
     foundBook.owner = null;
     foundBook.status = Status.AVAILABLE;
     localStorage.setItem("books", JSON.stringify(books));
-    setBorrowedBooks(cachedCallback());
+    setBorrowedBooks(cachedCallback(isLogin.id));
   }
 
   const columns: ColumnsType<{

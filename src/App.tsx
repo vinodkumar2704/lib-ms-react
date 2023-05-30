@@ -8,6 +8,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Library from "./Library";
 import { FC } from "react";
 import { ContextWrapper } from "./context";
+import AddBook from "./AddBook";
 // routes
 // /login
 // /signup
@@ -15,32 +16,71 @@ import { ContextWrapper } from "./context";
 // /library =>borrow + Add book.
 // /library/add-book =>
 //
+import { Layout, Space } from "antd";
+
+const { Header, Footer, Sider, Content } = Layout;
+
+const headerStyle: React.CSSProperties = {
+  textAlign: "center",
+  color: "#fff",
+  height: 64,
+  paddingInline: 50,
+  lineHeight: "64px",
+  backgroundColor: "#7dbcea",
+};
+const contentStyle: React.CSSProperties = {
+  textAlign: "center",
+  minHeight: 150,
+  // lineHeight: "80px",
+  // color: "#fff",
+  // backgroundColor: "#108ee9",
+  padding: 50,
+  margin: 50,
+};
 
 const App: FC = () => {
   return (
     <BrowserRouter>
       <ContextWrapper>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        <Space direction="vertical" style={{ width: "100%" }} size={[0, 48]}>
+          <Layout>
+            <Link to={"/"}>
+              <Header style={headerStyle}>Library Management System</Header>
+            </Link>
+          </Layout>
 
-          <Route
-            path="/library"
-            element={
-              <ProtectedRoute>
-                <Library />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+          <Content style={contentStyle}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+
+              <Route
+                path="/library"
+                element={
+                  <ProtectedRoute>
+                    <Library />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/library/add"
+                element={
+                  <ProtectedRoute>
+                    <AddBook />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </Content>
+        </Space>
       </ContextWrapper>
     </BrowserRouter>
   );
