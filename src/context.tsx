@@ -7,7 +7,7 @@ interface contexttype {
     id: string;
     status: boolean;
   };
-  setIsLogin: (c: {}) => void;
+  setIsLogin: (c: object) => void;
 }
 export const ContextProvider = React.createContext<contexttype>({
   isLogin: {
@@ -15,7 +15,7 @@ export const ContextProvider = React.createContext<contexttype>({
     id: "",
     status: false,
   },
-  setIsLogin: function (c: {}): void {
+  setIsLogin: function (): void {
     throw new Error("Function not implemented.");
   },
 });
