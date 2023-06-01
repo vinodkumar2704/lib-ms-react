@@ -14,7 +14,13 @@ export const useLocalStorage = (
     }
     try {
       const fromLocalStorage = window.localStorage.getItem(key);
-      return fromLocalStorage ? JSON.parse(fromLocalStorage) : initialValue;
+      return fromLocalStorage
+        ? (JSON.parse(fromLocalStorage) as {
+            name: string;
+            id: null | string;
+            status: boolean;
+          })
+        : initialValue;
     } catch (error) {
       console.log(error);
       return initialValue;
@@ -28,7 +34,14 @@ export const useLocalStorage = (
   }): void => {
     try {
       console.log(Function);
-      const valueToStore = value instanceof Function ? value(setLogin) : value;
+      const valueToStore =
+        value instanceof Function
+          ? (value(setLogin) as {
+              name: string;
+              id: null | string;
+              status: boolean;
+            })
+          : value;
       console.log(valueToStore);
       setIsLogin(valueToStore);
       if (typeof window !== "undefined") {

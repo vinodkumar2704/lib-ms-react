@@ -1,13 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
 interface contexttype {
-  isLogin: {
-    name: string;
-    id: string;
-    status: boolean;
-  };
-  setIsLogin: (c: object) => void;
+  isLogin: any;
+  setIsLogin: any;
 }
 export const ContextProvider = React.createContext<contexttype>({
   isLogin: {
@@ -20,7 +16,7 @@ export const ContextProvider = React.createContext<contexttype>({
   },
 });
 
-export const ContextWrapper = (props: { children: any }) => {
+export const ContextWrapper = (props: { children: ReactNode }) => {
   const [isLogin, setIsLogin] = useLocalStorage("isLogin", {
     name: "",
     id: "",

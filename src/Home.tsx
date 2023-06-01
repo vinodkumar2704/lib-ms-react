@@ -20,7 +20,7 @@ const Home = () => {
   );
   const { isLogin } = useContext(ContextProvider);
   const [borrowedBooks, setBorrowedBooks] = useState(
-    cachedCallback(isLogin.id)
+    cachedCallback(isLogin.id as string)
   );
 
   function returnBook(title: string) {
@@ -33,7 +33,7 @@ const Home = () => {
       foundBook.status = Status.AVAILABLE;
     }
     localStorage.setItem("books", JSON.stringify(books));
-    setBorrowedBooks(cachedCallback(isLogin.id));
+    setBorrowedBooks(cachedCallback(isLogin.id as string));
   }
 
   const columns: ColumnsType<{
