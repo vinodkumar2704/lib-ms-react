@@ -15,7 +15,8 @@
   },
   "plugins": ["react", "import", "jsx-a11y", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
-  "exclude": ["./src/index.html"],
+  // "exclude": ["./src/index.html"],
+  "ignorePatterns": ["src/*.html"],
   "parserOptions": {
     "project": "./tsconfig.json",
     "ecmaVersion": 2022,

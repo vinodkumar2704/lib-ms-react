@@ -10,7 +10,12 @@ const Library = () => {
   const cachedCallback = useCallback(() => getAvailableBooks, []);
 
   const [availablebooks, setAvailableBooks] = useState(cachedCallback());
-  const { isLogin } = useContext(ContextProvider);
+  const contextValue = useContext(ContextProvider);
+  if (!contextValue) {
+    return null;
+  }
+
+  const { isLogin } = contextValue;
   function borrowBook(title: string) {
     const books: BookInterface[] = JSON.parse(
       localStorage.getItem("books") || ""

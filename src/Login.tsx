@@ -14,7 +14,12 @@ const Login = () => {
   //     username: "",
   //     password: "",
   //   });
-  const { setIsLogin } = useContext(ContextProvider);
+  const contextValue = useContext(ContextProvider);
+  if (!contextValue) {
+    return null;
+  }
+
+  const { setIsLogin } = contextValue;
   const [form] = Form.useForm();
   const onFinish = (values: { username: string; password: string }) => {
     console.log("Success:", values);

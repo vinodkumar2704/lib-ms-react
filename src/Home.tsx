@@ -18,7 +18,12 @@ const Home = () => {
     (id: string) => getBorrowedBooksData(id),
     []
   );
-  const { isLogin } = useContext(ContextProvider);
+  const contextValue = useContext(ContextProvider);
+  if (!contextValue) {
+    return null;
+  }
+
+  const { isLogin } = contextValue;
   const [borrowedBooks, setBorrowedBooks] = useState(
     cachedCallback(isLogin.id as string)
   );
