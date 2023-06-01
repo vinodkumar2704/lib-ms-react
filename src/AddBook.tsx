@@ -12,9 +12,13 @@ import { useNavigate } from "react-router-dom";
 const AddBook = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const onFinish = (values: any) => {
+  const onFinish = (values: {
+    title: string;
+    author: string;
+    isbn: number;
+  }) => {
     //   console.log("Success:", values);
-    let b: BookInterface = {
+    const b: BookInterface = {
       title: values.title,
       author: values.author,
       ISBN: values.isbn,
@@ -22,7 +26,9 @@ const AddBook = () => {
       status: Status.AVAILABLE,
       owner: null,
     };
-    const books = JSON.parse(localStorage.getItem("books") || "");
+    const books: BookInterface[] = JSON.parse(
+      localStorage.getItem("books") || ""
+    ) as BookInterface[];
     books.push(b);
     localStorage.setItem("books", JSON.stringify(books));
     console.log(JSON.parse(localStorage.getItem("books") || ""));

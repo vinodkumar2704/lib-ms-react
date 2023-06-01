@@ -12,10 +12,14 @@ const Library = () => {
   const [availablebooks, setAvailableBooks] = useState(cachedCallback());
   const { isLogin } = useContext(ContextProvider);
   function borrowBook(title: string) {
-    const books = JSON.parse(localStorage.getItem("books") || "");
-    let foundBook = books.find((b: BookInterface) => b.title === title)!;
-    foundBook.owner = isLogin.id;
-    foundBook.status = Status.BORROWED;
+    const books: BookInterface[] = JSON.parse(
+      localStorage.getItem("books") || ""
+    ) as BookInterface[];
+    const foundBook = books.find((b: BookInterface) => b.title === title);
+    if (foundBook) {
+      foundBook.owner = isLogin.id;
+      foundBook.status = Status.BORROWED;
+    }
     localStorage.setItem("books", JSON.stringify(books));
     setAvailableBooks(cachedCallback());
   }

@@ -24,10 +24,14 @@ const Home = () => {
   );
 
   function returnBook(title: string) {
-    const books = JSON.parse(localStorage.getItem("books") || "");
-    let foundBook = books.find((b: BookInterface) => b.title === title)!;
-    foundBook.owner = null;
-    foundBook.status = Status.AVAILABLE;
+    const books: BookInterface[] = JSON.parse(
+      localStorage.getItem("books") || ""
+    ) as BookInterface[];
+    const foundBook = books.find((b: BookInterface) => b.title === title);
+    if (foundBook) {
+      foundBook.owner = null;
+      foundBook.status = Status.AVAILABLE;
+    }
     localStorage.setItem("books", JSON.stringify(books));
     setBorrowedBooks(cachedCallback(isLogin.id));
   }

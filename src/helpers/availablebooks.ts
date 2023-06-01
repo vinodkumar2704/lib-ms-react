@@ -3,7 +3,7 @@ import { BookInterface, Status } from "../types";
 function getAvailableBooks() {
   const books: BookInterface[] = JSON.parse(
     localStorage.getItem("books") || ""
-  );
+  ) as BookInterface[];
   const availableBooks = books.filter((el) => {
     return el.status === Status.AVAILABLE;
   });

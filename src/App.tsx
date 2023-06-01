@@ -18,7 +18,7 @@ import AddBook from "./AddBook";
 //
 import { Layout, Space } from "antd";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
 const headerStyle: React.CSSProperties = {
   textAlign: "center",
@@ -86,6 +86,6 @@ const App: FC = () => {
   );
 };
 
-const container = document.getElementById("root")!;
+const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);
 root.render(<App />);

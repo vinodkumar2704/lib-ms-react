@@ -1,8 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ContextProvider } from "./context";
 import { Button, Form, Input } from "antd";
 
+interface Loggeduser {
+  username: string;
+  name: string;
+  password: string;
+}
 const Login = () => {
   const navigate = useNavigate();
   //   const [user, setUser] = useState({
@@ -11,19 +16,25 @@ const Login = () => {
   //   });
   const { setIsLogin } = useContext(ContextProvider);
   const [form] = Form.useForm();
-  const onFinish = (values: any) => {
-    //   console.log("Success:", values);
+  const onFinish = (values: { username: string; password: string }) => {
+    console.log("Success:", values);
     if (!localStorage.getItem("user")) {
       alert("invalid username or password.");
       form.resetFields();
     } else {
-      const loggeduser = JSON.parse(localStorage.getItem("user") || "");
+      const loggeduser: Loggeduser = JSON.parse(
+        localStorage.getItem("user") || ""
+      ) as Loggeduser;
       if (
         loggeduser.username === values.username &&
         loggeduser.password === values.password
       ) {
         localStorage.setItem("logstate", "true");
-        setIsLogin({ name: values.name, id: values.username, status: true });
+        setIsLogin({
+          name: values.username,
+          id: values.username,
+          status: true,
+        });
         navigate("/");
       } else {
         alert("invalid username or password.");
@@ -54,39 +65,42 @@ const Login = () => {
   //     }
   //   };
   return !localStorage.getItem("logstate") ? (
-    <Form
-      form={form}
-      name="authform"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
-      autoComplete="off"
-      onFinish={onFinish}
-    >
-      <Form.Item
-        label="Username"
-        name="username"
-        id="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+    <div>
+      <Form
+        form={form}
+        name="authform"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600 }}
+        initialValues={{ remember: true }}
+        autoComplete="off"
+        onFinish={onFinish}
       >
-        <Input />
-      </Form.Item>
+        <Form.Item
+          label="Username"
+          name="username"
+          id="username"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Input.Password />
-      </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+      <Link to={"/register"}>Register</Link>
+    </div>
   ) : (
     // <div>
     // <form onSubmit={login}>
@@ -120,6 +134,7 @@ const Login = () => {
     //   </form>
     //   <Link to={"/register"}>Register</Link>
     // </div>
+
     <Navigate to={"/"} />
   );
 };
