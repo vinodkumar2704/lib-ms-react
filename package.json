@@ -8,7 +8,7 @@
     "format": "prettier --write \"src/**/*.{ts,js,jsx,tsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet",
     "lintfix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\" ",
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "vite build",
     "preview": "vite preview"
   },

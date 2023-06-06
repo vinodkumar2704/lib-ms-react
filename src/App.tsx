@@ -38,7 +38,7 @@ const contentStyle: React.CSSProperties = {
   margin: 50,
 };
 
-const App: FC = () => {
+export const App = () => {
   return (
     <BrowserRouter>
       <ContextWrapper>
