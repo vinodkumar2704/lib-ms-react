@@ -6,7 +6,6 @@ import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import Library from "./Library";
-import { FC } from "react";
 import { ContextWrapper } from "./context";
 import AddBook from "./AddBook";
 // routes
