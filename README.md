@@ -2,6 +2,7 @@
 
 To run the project:
 
+- vite
 - Clone the repository.
 - In terminal, run 'npm install' command.
 - Then run 'npm run dev'.
